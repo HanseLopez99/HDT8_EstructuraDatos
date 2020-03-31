@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.ArrayList;
+
 public class fileRead{
     ArrayList<String> list;
     String[] parts;
