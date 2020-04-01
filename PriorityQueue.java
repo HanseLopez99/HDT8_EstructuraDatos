@@ -20,4 +20,6 @@ public interface PriorityQueue<E extends Comparable<E>>
 	
 	public void clear();
 	// post: removes all elements from queue
+
+	public PriorityQueue<E> clone();
 }

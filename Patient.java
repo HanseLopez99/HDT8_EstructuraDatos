@@ -39,6 +39,11 @@ public class Patient implements Comparable<Patient>{
     
 	@Override
 	public int compareTo(Patient o) {
-		return this.name.compareTo(o.name);
+		return this.priority.compareTo(o.priority);
+    }
+    
+    @Override
+	public String toString() {
+		return "Prioridad: " + priority + "\nNombre: " + name + "\nSintoma: " + symptom;
 	}
 }

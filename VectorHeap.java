@@ -113,25 +113,34 @@ public class VectorHeap<E extends Comparable<E>> implements PriorityQueue<E>
 
 	@Override
 	public E getFirst() {
-		// TODO Auto-generated method stub
-		return null;
+		return data.firstElement();
+	}
+
+	@Override
+	public void clear() {
+		data.clear();
+
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
+		if (data.size() <= 0) return true; 
+		
 		return false;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return data.size();
 	}
 
 	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
+	public PriorityQueue<E> clone(){
+		PriorityQueue<E> temp = new VectorHeap<E>();
+		for (E e:data) {
+			temp.add(e);
+		}
 		
+		return temp;
 	}
 }
