@@ -1,43 +1,62 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class fileRead{
-    ArrayList<String> list;
-    String[] parts;
-
-	public ArrayList<String> Reader(){
-        list = new ArrayList<String>();
-
-		String fileName = "cards_desc.txt";
-
-        String line = null;
-
-        try {
-
-            FileReader fileReader = 
-                new FileReader(fileName);
-
-            BufferedReader bufferedReader = 
-                new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null) {
-                parts = line.split("\\, ");
-                list.add(parts[0]);
-                parts = null;
-            }   
-
-            bufferedReader.close();         
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                "Unable to open file '" + 
-                fileName + "'");                
-        }
-        catch(IOException ex) {
-            System.out.println(
-                "Error reading file '" 
-                + fileName + "'");                  
-        }
-        return list;
+    public static String getPath(){
+        JFileChooser chooser = new JFileChooser();
+	 	FileNameExtensionFilter fileExtensionFilter =new FileNameExtensionFilter("*.TXT", "txt");
+	 	chooser.setFileFilter(fileExtensionFilter);
+	 	File f = null;
+	 	
+		try {
+			f = new File(new File(".").getCanonicalPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		String path = "";
+		
+		try {
+			chooser.setCurrentDirectory(f);
+			chooser.setCurrentDirectory(null);
+			chooser.showOpenDialog(null);
+	    
+			path = chooser.getSelectedFile().toString();
+		}catch(Exception e) {
+			
+		}
+        return path;
     }
+
+    public static Object[] readTXT(String path) {
+		
+		File newFile = new File(path);
+		FileReader reader;
+		BufferedReader br;
+		ArrayList<Patient> patients = new ArrayList<Patient>();
+		
+		try {
+			
+			reader = new FileReader(newFile);
+			br = new BufferedReader(reader);
+			
+			String line = "";
+			
+			while((line = br.readLine()) != null) {
+				String[] parameters = line.split(", "); 
+				patients.add(new Patient(parameters[0].trim(),parameters[1].trim(),parameters[2].trim()));		
+			}
+				
+			br.close();
+			reader.close();		
+		} catch (Exception e) {
+			
+		}	
+		return patients.toArray();
+	}
 }

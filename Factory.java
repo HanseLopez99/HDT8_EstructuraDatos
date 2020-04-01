@@ -3,7 +3,7 @@ public class Factory<E extends Comparable<E>>{
         switch(priority){
             case "VectorHeap":
                 return new VectorHeap<E>();
-            case "PriorityQueue":
+            case "PriorityQueueJCF":
                 return new PriorityJCF<E>();
             default: return null;
         }
