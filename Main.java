@@ -51,6 +51,44 @@ public class Main {
 	public Main() {
 		Initialize();
 	}
+	
+	/**
+	 * method to fill the DefaultTableModel with patients
+	 */
+	private void setTable() {
+		PriorityQueue<Patient> data = prioritySystem.getPatients();
+		model = new DefaultTableModel();
+		model.setColumnCount(3);
+		model.setColumnIdentifiers(new String[] {"Codigo", "Nombre", "Sintoma"});
+		model.setRowCount(prioritySystem.size());
+		int c = prioritySystem.size();
+		
+		for (int i = 0; i < c;i++) {
+			Patient pa = data.remove();
+			model.setValueAt(pa.getPriority(), i, 0);
+			model.setValueAt(pa.getName(), i, 1);
+			model.setValueAt(pa.getSymptom(), i, 2);
+		}
+		scrollPatient.setViewportView(new JTable(model));
+	}
+	
+	/**
+	 * method to fill the table with the current patient
+	 */
+	private void setCurrentTable() {
+		Patient p = prioritySystem.getPatient();
+		model = new DefaultTableModel();
+		model.setColumnCount(3);
+		model.setColumnIdentifiers(new String[] {"Codigo", "Nombre", "Sintoma"});
+		model.setRowCount(0);
+		if (prioritySystem.getPatient() != null) {
+			model.setRowCount(1);
+			model.setValueAt(p.getPriority(), 0, 0);
+			model.setValueAt(p.getName(), 0, 1);
+			model.setValueAt(p.getSymptom(), 0, 2);
+		}
+		scrollCurrentPatient.setViewportView(new JTable(model));
+	}
 
 	/**
 	 * Initialize the content
@@ -141,7 +179,7 @@ public class Main {
 				setTable();
 			}
 		});
-		btnNewButton_1.setBounds(31, 40, 250, 42);
+		btnNewButton_1.setBounds(420, 40, 400, 42);
 		menuPanel.add(btnNewButton_1);
 		
 		scrollPatient = new JScrollPane();
@@ -159,7 +197,7 @@ public class Main {
 		lblNewLabel_1.setBounds(205, 160, 157, 30);
 		menuPanel.add(lblNewLabel_1);
 		
-		JButton btnTransferir = new JButton("Transferir Paciente");//
+		JButton btnTransferir = new JButton("Pasar a clinica");//
 		btnTransferir.setBackground(Color.LIGHT_GRAY);
 		btnTransferir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -201,41 +239,4 @@ public class Main {
 		
 	}
 	
-	/**
-	 * method to fill the DefaultTableModel with patients
-	 */
-	private void setTable() {
-		PriorityQueue<Patient> data = prioritySystem.getPatients();
-		model = new DefaultTableModel();
-		model.setColumnCount(3);
-		model.setColumnIdentifiers(new String[] {"Codigo", "Nombre", "Sintoma"});
-		model.setRowCount(prioritySystem.size());
-		int c = prioritySystem.size();
-		
-		for (int i = 0; i < c;i++) {
-			Patient pa = data.remove();
-			model.setValueAt(pa.getPriority(), i, 0);
-			model.setValueAt(pa.getName(), i, 1);
-			model.setValueAt(pa.getSymptom(), i, 2);
-		}
-		scrollPatient.setViewportView(new JTable(model));
-	}
-	
-	/**
-	 * method to fill the table with the current patient
-	 */
-	private void setCurrentTable() {
-		Patient p = prioritySystem.getPatient();
-		model = new DefaultTableModel();
-		model.setColumnCount(3);
-		model.setColumnIdentifiers(new String[] {"Codigo", "Nombre", "Sintoma"});
-		model.setRowCount(0);
-		if (prioritySystem.getPatient() != null) {
-			model.setRowCount(1);
-			model.setValueAt(p.getPriority(), 0, 0);
-			model.setValueAt(p.getName(), 0, 1);
-			model.setValueAt(p.getSymptom(), 0, 2);
-		}
-		scrollCurrentPatient.setViewportView(new JTable(model));
-	}
 }
