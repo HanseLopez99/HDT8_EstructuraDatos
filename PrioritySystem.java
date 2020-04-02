@@ -2,13 +2,17 @@ public class PrioritySystem{
     private PriorityQueue<Patient> data;
 	private Patient currentPatient;
 	
+	/**
+	 * PrioritySystem constructor
+	 * @param factory
+	 */
 	public PrioritySystem(String factory) {
 		Factory<Patient> fact = new Factory<Patient>();
 		data = fact.getPriority(factory);
 	}
 	
 	/**
-	 * Metodo para agregar pacientes
+	 * method to add patients stored in a txt file
 	 */
 	public void addPatient() {
 		Object[] data = fileRead.readTXT(fileRead.getPath());
@@ -18,40 +22,40 @@ public class PrioritySystem{
 	}
 	
 	/**
-	 * Metodo para transferir pacientes
+	 * method to transfer a patient to the clinic
 	 */
 	public void transferPatient() {
 		currentPatient = data.remove();
 	}
 	
 	/**
-	 * Metodo para retornar el paciente actual
-	 * @return
+	 * method to get the current patient
+	 * @return currentPatient
 	 */
 	public Patient getPatient() {
 		return currentPatient;
 	}
 	
 	/**
-	 * Metodo para atender al paciente
-	 * @return
+	 * method to check a patient
+	 * @return true or false
 	 */
-	public boolean attendPatient() {
+	public boolean checkPatient() {
 		currentPatient = null;
 		return true;
 	}
 	
 	/**
-	 * metodo que devuelve a todos los pacientes
-	 * @return
+	 * method to get a clone of all patients
+	 * @return clone
 	 */
 	public PriorityQueue<Patient> getPatients(){
 		return data.clone();
 	}
 	
 	/**
-	 * Metodo que retorna el size 
-	 * @return
+	 * method to get the size
+	 * @return size
 	 */
 	public int size() {
 		return data.size();

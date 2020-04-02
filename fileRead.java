@@ -7,6 +7,10 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class fileRead{
+	/**
+	 * method to get the path
+	 * @return the path 
+	 */
     public static String getPath(){
         JFileChooser chooser = new JFileChooser();
 	 	FileNameExtensionFilter fileExtensionFilter =new FileNameExtensionFilter("*.TXT", "txt");
@@ -32,7 +36,12 @@ public class fileRead{
 		}
         return path;
     }
-
+    
+    /**
+     * Method to read a file using the file explorer
+     * @param path
+     * @return array with patients
+     */
     public static Object[] readTXT(String path) {
 		
 		File newFile = new File(path);

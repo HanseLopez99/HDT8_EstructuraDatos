@@ -53,7 +53,7 @@ public class Main {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the content
 	 */
 	private void Initialize() {
 		frame = new JFrame();
@@ -187,12 +187,12 @@ public class Main {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(prioritySystem.getPatient() != null) {
-					prioritySystem.attendPatient();
+					prioritySystem.checkPatient();
 					setCurrentTable();
 					setTable();
-					JOptionPane.showMessageDialog(null, "Se atendio el paciente con exito");
+					JOptionPane.showMessageDialog(null, "Se acaba de atender a un paciente!");
 				}else {
-					JOptionPane.showMessageDialog(null, "No hay paciente para atender");
+					JOptionPane.showMessageDialog(null, "No hay ningun paciente por ahora...");
 				}
 			}
 		});
@@ -201,6 +201,9 @@ public class Main {
 		
 	}
 	
+	/**
+	 * method to fill the DefaultTableModel with patients
+	 */
 	private void setTable() {
 		PriorityQueue<Patient> data = prioritySystem.getPatients();
 		model = new DefaultTableModel();
@@ -218,6 +221,9 @@ public class Main {
 		scrollPatient.setViewportView(new JTable(model));
 	}
 	
+	/**
+	 * method to fill the table with the current patient
+	 */
 	private void setCurrentTable() {
 		Patient p = prioritySystem.getPatient();
 		model = new DefaultTableModel();
